@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul>li {
+            float: left;
+        }
+        
+        img {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <list-item v-for='item in listData' v-bind:item1='item'></list-item>
+        </ul>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        const listItem = {
+            props: ['item1'],
+            template: `<li>
+                        <img v-bind:src="item1.url" alt="">
+                        <p>{{ item1.title }}</p>
+                        </li>`
+        }
+
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    listData: [{
+                        url: 'https://p1.meituan.net/moviemachine/a448ca6a5f4dafb88067722303ca0cfd96002.jpg@464w_644h_1e_1c',
+                        title: '八佰'
+                    }, {
+                        url: 'https://p1.meituan.net/moviemachine/ca9d0c0268a940d73d62c004d57b957a5241814.jpg@464w_644h_1e_1c',
+                        title: '花木兰'
+                    }, {
+                        url: 'https://p0.meituan.net/moviemachine/40d1e5ac176f1e9258da10a3222dbff7952117.png@464w_644h_1e_1c',
+                        title: '心跳'
+                    }]
+                }
+            },
+            components: {
+                listItem
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todoList</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model='value'>
+        <button v-on:click='add'>增加</button>
+        <ul>
+            <li v-for="(val,i) in arr">
+                {{val}}
+                <button v-on:click='delData(i)'>删除</button>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                value: '',
+                arr: ['dadasd', 'dasdas']
+            },
+            methods: {
+                add() {
+                    this.arr.push(this.value);
+                    this.value = '';
+                },
+                delData(i) {
+                    this.arr.splice(i, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

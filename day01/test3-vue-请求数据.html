@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for='item in res'>
+                <img v-bind:src="item.imgUrl" alt="">
+                <span>{{item.productName}}</span>
+                <span>￥ {{item.currentPrice}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <script src='../Vue.js'></script>
+    <script>
+        var url = 'http://www.pudge.wang:3001/home/recommend';
+        var data = {
+            username: 'example'
+        };
+
+        fetch(url, {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify(data), // data can be `string` or {object}!
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+                // console.log('Success:', response.result.list)
+                let res = response.result.list;
+                console.log(res);
+                const vm = new Vue({
+                    el: '#app',
+                    data: {
+                        res
+                    },
+                    created() {
+                        console.log(this.data);
+                    }
+                })
+            });
+    </script>
+</body>
+
+</html>

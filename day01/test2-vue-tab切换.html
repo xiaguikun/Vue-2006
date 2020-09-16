@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            width: 600px;
+            height: 100px;
+            margin: 50px auto;
+        }
+        
+        ul>li {
+            width: 100px;
+            height: 20px;
+            float: left;
+            user-select: none;
+            cursor: pointer;
+        }
+        
+        p {
+            width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for='(item,i) in tab1' v-on:click='tab(i)'>{{item}}</li>
+        </ul>
+        <p>{{tab2[0]}}</p>
+    </div>
+
+    <script src='../Vue.js'></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    tab1: ['用户管理', '配置管理', '角色管理', '定时任务补偿'],
+                    tab2: ['用户管理'],
+                }
+            },
+            methods: {
+                tab(i) {
+                    this.tab2 = [];
+                    this.tab2.push(this.tab1[+i]);
+                    console.log(this.tab2);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-head></v-head>
+        <v-footer></v-footer>
+        <v-main></v-main>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        //局部组件申明
+        const VHead = {
+            data() {
+                return {
+                    msg: '局部注册组件头部'
+                }
+            },
+            template: `<div>{{ msg }}</div>`
+        };
+
+        const VFooter = {
+            template: `<div>局部注册组件页脚</div>`
+        };
+
+        const VMain = {
+            template: `<div>
+                            <v-head></v-head>
+                            <v-footer></v-footer>
+                    </div>`,
+            components: {
+                VHead,
+                VFooter
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                VHead,
+                VFooter,
+                VMain
+            }
+        })
+    </script>
+</body>
+
+</html>

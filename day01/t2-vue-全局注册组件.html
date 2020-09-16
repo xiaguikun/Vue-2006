@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-header></v-header>
+        <v-footer></v-footer>
+        <v-main></v-main>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        //
+        Vue.component('v-header', {
+            data() {
+                return {
+                    msg: '全局注册组件头部'
+                }
+            },
+            template: `<div>{{ msg }}</div>`
+        });
+        //
+        Vue.component('v-footer', {
+            data() {
+                return {
+                    msg: '全局注册组件页脚'
+                }
+            },
+            template: '<div>{{ msg }}</div>'
+        });
+        //
+        Vue.component('v-main', {
+            data() {
+                return {
+                    msg: '全局注册组件main'
+                }
+            },
+            template: `<div>
+                            <v-header></v-header>
+                            <v-footer></v-footer>
+                        </div>`
+        });
+        //
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Vue'
+            }
+        })
+    </script>
+</body>
+
+</html>

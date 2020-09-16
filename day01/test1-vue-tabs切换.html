@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            width: 600px;
+            height: 100px;
+            margin: 50px auto;
+        }
+        
+        ul>li {
+            width: 100px;
+            height: 20px;
+            float: left;
+            user-select: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <list-data v-for='(item,i) in tab1' v-bind:item='item' v-bind:i='i' v-bind:tab3='tab3'></list-data>
+        </ul>
+        <tab-data v-bind:tdata='tab3[0]'></tab-data>
+    </div>
+
+    <script src='../Vue.js'></script>
+    <script>
+        const listData = {
+            props: ['item', 'i', 'tab3'],
+            template: `<li v-on:click='cl(i)'>
+                        <p>{{item}}</p>
+                        </li>`,
+            methods: {
+                cl(i) {
+                    tab3 = [];
+                    tab3 = tab3.push(item);
+                }
+            }
+        }
+        const tabData = {
+            props: ['tdata'],
+            template: `<div>
+                        <p>{{ tdata }}</p>
+                        </div>`
+        }
+
+
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    tab1: ['用户管理', '配置管理', '角色管理', '定时任务补偿'],
+                    tab2: ['用户管理2', '配置管理2', '角色管理2', '定时任务补偿2'],
+                    tab3: []
+                }
+            },
+            components: {
+                listData,
+                tabData
+            },
+            methods: {
+                cl(i) {
+                    console.log(i);
+                    this.tab3 = [];
+                    this.tab3 = this.tab3.push(tab2[i]);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

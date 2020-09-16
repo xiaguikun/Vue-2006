@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{ msg }} {{ count }}
+        <button v-on:click="handleClick">按钮</button>
+        <button v-on:click="componentDestroy">销毁</button>
+    </div>
+
+
+    <script src="../Vue.js"></script>
+    <script>
+        const vm = new Vue({
+            // el: '#app',
+            data: {
+                msg: 'hello vue',
+                count: 1
+            },
+            methods: {
+                handleClick() {
+                    this.msg = "aaaaaa"
+                },
+                componentDestroy() {
+                    vm.$destroy()
+                }
+            },
+            // 初始化了事件和生命周期
+            beforeCreate() {
+                console.log('beforeCreate')
+                console.log(this.msg)
+            },
+            // 初始化了响应式数据
+            created() {
+                console.log('created')
+                console.log(this.msg)
+                    // 才能开始拿到data里面的数据
+                    // 最早可以做数据请求的地方
+            },
+            beforeMount() {
+                console.log('beforeMount')
+                console.log(this.msg)
+                console.log(document.querySelector('#app'))
+            },
+            // 用真实的dom去替换虚拟dom，挂载
+            mounted() {
+                console.log('mounted')
+                console.log(this.msg)
+                    // 在这里可以拿到真实的节点
+                console.log(document.querySelector('#app'))
+                    // 最迟只能在这里做数据请求
+            },
+            // 当data数据发生改变时触发
+            beforeUpdate() {
+                console.log('beforeUpdate')
+                console.log(document.querySelector('#app').innerHTML)
+
+            },
+            updated() {
+                // 在updated里面禁止修改data数据的，会死循环
+                console.log('updated')
+                console.log(document.querySelector('#app').innerHTML)
+                    // this.count++
+            },
+            beforeDestroy() {
+                // 销毁的是响应式的机制
+                // 定时器，事件监听， websocket连接
+                console.log('beforeDestroy')
+            },
+            destroyed() {
+                console.log('destroyed')
+            }
+        })
+
+        // 用来手动挂载的
+        vm.$mount('#app')
+    </script>
+</body>
+
+</html>
