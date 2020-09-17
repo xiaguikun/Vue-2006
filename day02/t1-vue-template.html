@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div v-html="msg">
+            <p>你好</p>
+        </div>
+        <div>我是{{ msg }}</div>
+        <div v-text="msg">我是</div>
+        <!-- <input type="text" v-model="msg"> -->
+        <p v-once>数量是{{ count }}</p>
+        <button v-bind:disabled="done">按钮</button>
+        <p>{{ count + 7 }}</p>
+        <p>{{ count * 2 }}</p>
+        <p v-bind:[message]="msg">{{ count > 10 ? '很大' : '很小' }}</p>
+
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: '<h2>hello world</h2>',
+                    count: 1,
+                    done: false,
+                    message: 'title'
+                }
+            },
+            mounted() {
+                setInterval(() => {
+                    this.count++
+                }, 1000)
+            }
+        })
+    </script>
+</body>
+
+</html>

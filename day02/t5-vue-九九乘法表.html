@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-for='(item,index) in 9'>
+            <br>
+            <span v-for='(ite,inx) in index+1'>{{ ite }} x {{inx+1}}={{ite*(inx+1)}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+
+</html>

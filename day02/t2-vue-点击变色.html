@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            background: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p :class="{active:one==1}" @click="back1">aaaaaaaaaaaaaaa</p>
+        <p :class="{active:two==1}" @click="back2">aaaaaaaaaaaaaaa</p>
+        <p :class="{active:three==1}" @click="back3">aaaaaaaaaaaaaaa</p>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    one: 1,
+                    two: 0,
+                    three: 0
+                }
+            },
+            methods: {
+                back1() {
+                    this.one = 1;
+                    this.two = 0,
+                        this.three = 0
+                },
+                back2() {
+                    this.one = 0;
+                    this.two = 1,
+                        this.three = 0
+                },
+                back3() {
+                    this.one = 0;
+                    this.two = 0,
+                        this.three = 1
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

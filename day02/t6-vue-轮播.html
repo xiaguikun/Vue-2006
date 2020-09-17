@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 520px;
+            height: 520px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .box-inner {
+            height: 520px;
+            width: 3120px;
+            position: absolute;
+        }
+        
+        img {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box">
+            <div class="box-inner" v-bind:style="{left:count+'px',transition:time+'s'}">
+                <img :src="item" alt="" v-for='(item,i) in url'>
+            </div>
+        </div>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    url: [
+                        './images/p1-1.jpg',
+                        './images/p1-2.jpg',
+                        './images/p1-3.jpg',
+                        './images/p1-4.jpg',
+                        './images/p1-5.jpg',
+                        './images/p1-1.jpg'
+                    ],
+                    count: 0,
+                    time: 1
+                }
+            },
+            created() {
+                setInterval(() => {
+                    this.count -= 520;
+                    this.time = 1;
+                    if (this.count == -3120) {
+                        this.count = 0;
+                        this.time = 0;
+                    }
+                }, 2000);
+            },
+            computed: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

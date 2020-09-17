@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .big {
+            font-size: 30px;
+        }
+        
+        .bac {
+            background: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p :class="[{bac:flag==1}, 'big']" @click='hand'>cfvsfvsdrfvgsdrf</p>
+    </div>
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    flag: 0
+                }
+            },
+            methods: {
+                hand() {
+                    console.log(1);
+                    this.flag = 1
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
