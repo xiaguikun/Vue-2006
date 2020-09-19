@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <child>
+            <!-- <p>77777</p> -->
+            <template v-slot:like>
+        <p>qiulan</p>
+      </template>
+            <template #name>
+        <p>zhangsan</p>
+      </template>
+            <template #default>
+        <p>25</p>
+      </template>
+            <!-- <div>88888</div> -->
+        </child>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        const child = {
+            template: `
+        <div>
+          <header>
+            <slot name="name"></slot> 
+          </header>
+          <main>
+            <slot></slot> 
+          </main>
+          <footer>
+            <slot name="like"></slot> 
+          </footer>
+        </div>
+      `
+        }
+
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {}
+            },
+            components: {
+                child
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <model1 @click.native="hand" :msg="msg"></model1>
+    </div>
+    <script src="../Vue.js"></script>
+    <script>
+        Vue.component('model1', {
+            props: {
+                msg: String
+            },
+            template: `
+                <p>{{msg}}</p>
+            `
+        })
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: '点击，弹框'
+                }
+            },
+            methods: {
+                hand() {
+                    alert('点击了，通过.native修饰符在一个组件的根元素上直接监听一个原生事件')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

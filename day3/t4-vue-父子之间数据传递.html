@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <child :msg1="msg1" @msg2="msg2"></child>
+        <p>{{ fromChild }}</p>
+    </div>
+    <script src="../Vue.js"></script>
+    <script>
+        //组件：全局注册组件，局部注册组件
+        //全局：Vue.component('组件名'，{})
+        //局部：const 组件名={},需要在调用组件的地方进行组件注册
+        const child = {
+            props: {
+                msg1: String
+            },
+            data() {
+                return {
+                    msg2: 'children'
+                }
+            },
+            template: `
+                <div>
+                <p>{{ msg1 }}</p>
+                </div>
+            `,
+            mounted() {
+                this.$emit('msg2', this.msg2)
+            }
+        }
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg1: 'parent',
+                    fromChild: ''
+                }
+            },
+            components: {
+                child
+            },
+            methods: {
+                msg2(message) {
+                    this.fromChild = message;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

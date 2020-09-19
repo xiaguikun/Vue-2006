@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <select name="" id="">
+      <!-- <op v-for="(item, index) in list" :key="index" :item="item"></op> -->
+      <option is="op" v-for="(item, index) in list" :key="index" :item="item"></option>
+    </select>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        const op = {
+            props: ['item'],
+            template: `
+        <option>{{ item }}</option>
+      `
+        }
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    list: ['a', 'b', 'c', 'd']
+                }
+            },
+            components: {
+                op
+            }
+        })
+    </script>
+</body>
+
+</html>

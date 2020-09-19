@@ -58,14 +58,15 @@
   - v-if
   - v-show
   - v-for
-  - v-on      ->   @
-  - v-bind    ->   :
+  - v-on:      ->   @
+  - v-bind:    ->   :
   - v-model
   - v-once
   - v-html  innerHTML
   - v-text 
   - v-else
   - v-else-if
+  - v-slot:    ->   #
 
 #### 选项
   - el
@@ -121,14 +122,24 @@
 
 
 #### 生命周期
+    - 初始化事件和生命周期
   - beforeCreate
+    - 初始化数据
   - created
+    - 检测el和template
   - beforeMount
+    - 挂载，将虚拟DOM变成真实DOM
   - mounted
+    - 数据有更新的时候触发
   - beforeUpdate
+    - 重新渲染
   - updated
+    - 组件销毁时触发
   - beforeDestroy
   - destroyed
+
+  - activated  当缓存组件被激活时调用
+  - deactivated  当缓存组件被停用时调用
 
 
 #### 计算属性computed
@@ -193,15 +204,14 @@
     - slice
     - map
     - reduce
-    - filter
     - ...
 
 #### 事件修饰符
   ```
-    <!-- 阻止单击事件冒泡 -->
+    <!-- 阻止单击事件继续传播 -->
     <a v-on:click.stop="doThis"></a>
 
-    <!-- 提交事件不再重载页面(阻止默认事件) -->
+    <!-- 提交事件不再重载页面 -->
     <form v-on:submit.prevent="onSubmit"></form>
 
     <!-- 修饰符可以串联 -->
@@ -217,30 +227,52 @@
     <!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
     <!-- 即事件不是从内部元素触发的 -->
     <div v-on:click.self="doThat">...</div>
-    .stop
-    .prevent
-    .capture
-    .self
-    .once
-    .passive
   ```
-  ####  按键修饰符
+
+
+#### v-model
+  是v-on和v-bind的语法糖
   ```
-  .enter
-  .tab
-  .delete (捕获“删除”和“退格”键)
-  .esc
-  .space
-  .up
-  .down
-  .left
-  .right
-```    
+    <input type="text" :value="msg" @input="handerInput">
+    data() {
+      return {
+        msg: 'haha'
+      }
+    },
+    methods: {
+      handerInput(e) {
+        this.msg = e.target.value
+      }
+    }
+  ```
 
-    Vue 还对应 addEventListener 中的 passive 选项提供了 .passive 修饰符。
+#### 组件之间的传参
+  1. 父子组件传参
+    - 父传子
+      在父组件自定义属性<child :msg="msg"></child>
+      在子组件里面用props接受  props: ['msg']
 
-    <!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 -->
-    <!-- 而不会等待 `onScroll` 完成  -->
-    <!-- 这其中包含 `event.preventDefault()` 的情况 -->
-    <div v-on:scroll.passive="onScroll">...</div>
-    这个 .passive 修饰符尤其能够提升移动端的性能。
+    - 子传父
+      在父组件自定义事件<child @msg1="msg2"></child>
+      在子组件里面使用$emit触发  this.$emit('msg1', 传递参数)
+
+
+#### 插槽
+  - 用于内容分发
+  - 可以分发文本/标签/组件
+  - 使用<slot> 元素作为承载分发内容的出口。
+  - 具名插槽的使用
+    - 子组件里面 <slot name="插槽名"></slot>
+    - 父组件里面 <template v-slot:插槽名></template>
+    - 如果没有加v-slot,都会放入默认插槽里面
+
+
+#### 动态组件
+  - 可以通过 Vue 的 <component> 元素加一个特殊的 is attribute 来实现
+
+#### <keep-alive>
+  - 用于缓存组件的，缓存的组件就不会进行销毁和重新挂载
+
+
+homework :轮播图
+    

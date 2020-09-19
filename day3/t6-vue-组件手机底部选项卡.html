@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .big {
+            width: 400px;
+            height: 600px;
+            border: 2px solid black;
+            border-radius: 20px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        
+        span {
+            display: inline-block;
+            margin: 10px 45px;
+            margin-top: 450px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="big">
+            <keep-alive>
+                <component :is="modelIndex"></component>
+                <span v-for="(item,i) in bot" @click="change(i)">{{ item }}</span>
+            </keep-alive>
+        </div>
+    </div>
+    <script src="../Vue.js"></script>
+    <script>
+        const model1 = {
+            template: `
+                <div class="box">
+                    <h2>首页</h2>
+                    <h3>首页内容</h3>
+                </div>
+            `
+        }
+        const model2 = {
+            template: `
+                <div class="box">
+                    <h2>详情</h2>
+                    <h3>详情内容</h3>
+                </div>
+            `
+        }
+        const model3 = {
+            template: `
+                <div class="box">
+                    <h2>我的</h2>
+                    <h3>我的内容</h3>
+                </div>
+            `
+        }
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    bot: ['首页', '详情', '我的'],
+                    modelIndex: 'model1'
+                }
+            },
+            components: {
+                model1,
+                model2,
+                model3
+            },
+            methods: {
+                change(i) {
+                    this.modelIndex = 'model' + (i + 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

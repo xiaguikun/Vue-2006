@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <child>today is friday</child>
+        <child> {{msg2}}</child>
+        <child>
+            <child2></child2>
+        </child>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        const child = {
+            data() {
+                return {
+                    msg1: "xiaoMing say:"
+                }
+            },
+            template: `
+                <div>
+                    <p>{{ msg1 }}</p>
+                    <slot></slot>
+                </div>
+            `
+        }
+
+        const child2 = {
+            template: `
+                <h2>didididdiidagagagaagag</h2>
+            `
+        }
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg2: `<h3>tomorrow is saturday</h3>`
+                }
+            },
+            components: {
+                child,
+                child2
+            }
+        })
+    </script>
+</body>
+
+</html>

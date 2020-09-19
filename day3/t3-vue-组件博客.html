@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            width: 600px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        
+        ul {
+            width: 600px;
+            height: 500px;
+            list-style: none;
+            box-sizing: border-box;
+            padding: 10px 20px;
+        }
+        
+        ul li {
+            height: 80px;
+            margin: 10px 0;
+            border-bottom: 1px solid #aaa;
+        }
+        
+        ul li p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class='box'>
+            <blog></blog>
+        </div>
+    </div>
+    <script src="../Vue.js"></script>
+    <script>
+        const btn = {
+            template: `
+                <button>点赞</button>
+            `
+        }
+        const BlogTop = {
+            template: `
+                <ul>
+                    <li v-for="item in sayData">
+                        <p>{{item.name}}说：</p>
+                        <p>{{ item.content }}</p>    
+                        <btn style="margin-left:100px;"></btn>
+                    </li>    
+                </ul>
+            `,
+            data() {
+                return {
+                    sayData: [{
+                        name: '一一',
+                        content: '今天是周一'
+                    }, {
+                        name: '二二',
+                        content: '今天是周二'
+                    }, {
+                        name: '三三',
+                        content: '今天是周三'
+                    }, {
+                        name: '四四',
+                        content: '今天是周四'
+                    }, {
+                        name: '五五',
+                        content: '今天是周五'
+                    }, ]
+                }
+            },
+            components: {
+                btn
+            }
+        }
+
+        const BlogBottom = {
+            template: `
+                <div>
+                    <textarea name="" id="" cols="30" rows="3"></textarea>
+                </div>
+            `
+        }
+
+        const blog = {
+            template: `
+               <div>
+                <blog-top></blog-top>
+                <blog-bottom></blog-bottom>
+                </div>
+            `,
+            components: {
+                BlogTop,
+                BlogBottom
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+
+                }
+            },
+            components: {
+                blog
+            }
+        })
+    </script>
+</body>
+
+</html>
