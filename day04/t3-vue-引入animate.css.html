@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+    <!-- (自定义过渡类名)我们可以通过以下 attribute 来自定义过渡类名：
+
+        enter-class
+        enter-active-class
+        enter-to-class (2.1.8+)
+        leave-class
+        leave-active-class
+        leave-to-class (2.1.8+) -->
+
+    <!-- 
+        补充
+        你也可以定制进入和移出的持续时间：通过 :duration属性
+        <transition :duration="{ enter: 500, leave: 800 }">...</transition> -->
+
+    <div id="app">
+        <button @click="show=!show">按钮</button>
+        <transition enter-active-class="animate__animated animate__bounce" leave-active-class="animate__animated animate__rubberBand">
+            <p v-if="show">演示文字</p>
+        </transition>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    show: true
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

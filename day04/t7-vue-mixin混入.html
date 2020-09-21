@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="change">anniu</button>
+        <button @click="change">anniu</button> {{a}} {{b}} {{d}}
+        <tem-child></tem-child>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        const mixin = {
+            data() {
+                return {
+                    a: 1,
+                    b: 2,
+                    g: 65656
+                }
+            },
+            methods: {
+                change() {
+                    console.log(3);
+                }
+            },
+            mounted() {
+                console.log(11);
+            }
+        }
+
+        const TemChild = {
+            template: `
+                <div>
+                    <p>{{g}}</p>
+                </div>
+            `,
+            mixins: [mixin]
+        }
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    d: 4
+                }
+            },
+            methods: {
+                change() {
+                    console.log(5);
+                }
+            },
+            mounted() {
+                console.log(22);
+            },
+            mixins: [mixin],
+            components: {
+                TemChild
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -13,12 +13,18 @@
             border-radius: 20px;
             margin: 50px auto;
             text-align: center;
+            position: relative;
+        }
+        
+        .footer {
+            position: absolute;
+            left: 0;
+            bottom: 5px;
         }
         
         span {
             display: inline-block;
             margin: 10px 45px;
-            margin-top: 450px;
             cursor: pointer;
         }
     </style>
@@ -29,8 +35,10 @@
         <div class="big">
             <keep-alive>
                 <component :is="modelIndex"></component>
-                <span v-for="(item,i) in bot" @click="change(i)">{{ item }}</span>
             </keep-alive>
+            <div class="footer">
+                <span v-for="(item,i) in bot" @click="change(i)">{{ item }}</span>
+            </div>
         </div>
     </div>
     <script src="../Vue.js"></script>
@@ -40,8 +48,28 @@
                 <div class="box">
                     <h2>首页</h2>
                     <h3>首页内容</h3>
+                    <p>{{msg}}</p>
                 </div>
-            `
+            `,
+            data() {
+                return {
+                    timer: null,
+                    msg: '加载中',
+                    timer1: null
+                }
+            },
+            deactivated() {
+                clearTimeout(this.timer1)
+                this.timer = setTimeout(() => {
+                    this.$destroy()
+                }, 5000)
+            },
+            activated() {
+                clearTimeout(this.timer);
+                this.timer1 = setTimeout(() => {
+                    this.msg = '加载完毕'
+                }, 1000)
+            }
         }
         const model2 = {
             template: `
@@ -60,7 +88,7 @@
             `
         }
 
-        new Vue({
+        const vm = new Vue({
             el: '#app',
             data() {
                 return {

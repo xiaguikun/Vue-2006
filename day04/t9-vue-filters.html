@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 当前的时间为{{ time | format }}
+    明天的是{{ time + 1000 * 60 * 60 * 24 * 150 | format }} -->
+        性别是{{ sex | formatSex | formatSex2 }}
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    time: 1600672974972,
+                    sex: 1
+                }
+            },
+            filters: {
+                formatSex(value) {
+                    return value ? '男' : '女'
+                },
+                formatSex2(value) {
+                    return value === '男' ? '♂' : '♀'
+                }
+                //let date=new Date() date.getTime()||Date.now()
+                // format(value) {
+                //   const aaa = new Date(value);
+                //   const year=aaa.getFullYear(); 
+                //   const month=aaa.getMonth()+1; 
+                //   const date=aaa.getDate();
+                //   return year+"-"+month+"-"+date;
+                //   // return value + 1
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

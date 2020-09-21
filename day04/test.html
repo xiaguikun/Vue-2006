@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ a }}</p>
+        <child></child>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        // const mixin = {
+        //   data() {
+        //     return {
+        //       pageSize: 10,
+        //       currentCount: 1
+        //     }
+        //   },
+        //   methods: {
+        //     change() {
+        //       console.log(1)
+        //     }
+        //   },
+        //   mounted() {
+        //     console.log(2)
+        //   },
+        // }
+
+        // // 定义组件
+        // const child1 = {
+        //   mixins: [mixin],
+        //   data() {
+        //     return {
+
+        //     }
+        //   }
+        // }
+
+        // const child2 = {
+        //   mixins: [mixin]
+        // }
+
+        const child = {
+            template: `
+        <div>hi</div>
+      `,
+            mounted() {
+                console.log(2)
+            },
+        }
+
+        new Vue({
+            el: '#app',
+            // mixins: [mixin],
+            data() {
+                return {
+                    a: 1,
+                    b: 2,
+                    pageSize: 20
+                }
+            },
+            mounted() {
+                console.log(1)
+            },
+            components: {
+                child
+            }
+        })
+    </script>
+</body>
+
+</html>

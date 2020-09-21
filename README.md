@@ -7,8 +7,6 @@
   - vue3.0
   - 项目上线
 
-### 9-16
-
 #### 为什么要学习框架
   - 提高工作效率，减少成本
   - 提高性能
@@ -77,6 +75,9 @@
   - components
   - template
   - props
+  - mixins
+  - directives
+  - filters
 
 
 
@@ -270,9 +271,69 @@
 #### 动态组件
   - 可以通过 Vue 的 <component> 元素加一个特殊的 is attribute 来实现
 
-#### <keep-alive>
+#### keep-alive
   - 用于缓存组件的，缓存的组件就不会进行销毁和重新挂载
 
+#### 混入
+  - 混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+  - 数据对象在内部会进行递归合并，并在发生冲突时以组件数据优先。
+  - 如果生命周期发生冲突的时候，是合并的
 
-homework :轮播图
-    
+#### 自定义指令
+  - 除了核心功能默认内置的指令 (v-model 和 v-show)，Vue 也允许注册自定义指令
+  - 有5个钩子函数 bind inserted update componentUpdated unbind
+  - 函数的简写
+    指令名 () {
+      // 相当于bind和update
+    }    
+
+
+#### 过滤器
+  - Vue.js 允许你自定义过滤器，可被用于一些常见的  文本格式化
+  - 过滤器可以串联
+
+
+
+
+#### vue脚手架
+  - vue-cli
+  - 安装 npm install @vue/cli -g
+  - 创建项目 vue create 项目名( 不要用git bash去装， 用cmd或者vscode )
+  - Please pick a preset    ->    Manually select features
+  - Check the features needed for your project
+      (*) Choose Vue version
+      (*) Babel
+      ( ) TypeScript
+      ( ) Progressive Web App (PWA) Support
+      (*) Router
+      (*) Vuex
+      (*) CSS Pre-processors
+      (*) Linter / Formatter
+      ( ) Unit Testing
+      ( ) E2E Testing
+  - Use history mode for router       ->   no
+  - Pick a CSS pre-processor     ->    sass
+  - Pick a linter / formatter config   
+
+#### 目录结构
+  - node_modules       项目的依赖
+  - public             静态资源文件（不会被打包进去的）
+  - src                源目录，开发目录
+    - assets              静态资源文件（会被打包的）
+    - components          存放组件的文件夹
+    - router              存放路由的文件夹
+    - store               存放vuex的文件夹
+    - views               存放页面的文件夹
+    - app.vue             项目的根组件
+    - main.js             项目的入口的js文件
+  - .browserslistrc    浏览器支持
+  - .eslintrc.js       做eslint的代码风格检查
+  - babel.config.js    用于编译babel
+  - package-lock.json  锁定版本
+  - package.json       项目依赖的记录文件
+  - README.md          说明文档
+
+
+#### 单页面组件
+  - 一个文件就是一个组件
+  - 有三部分组成  html/js/css

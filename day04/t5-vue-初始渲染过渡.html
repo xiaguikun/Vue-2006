@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        .custom-appear-class {
+            opacity: 0;
+        }
+        
+        .custom-appear-to-class {
+            opacity: 1;
+        }
+        
+        .custom-appear-active-class {
+            transition: all 2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="show = !show">
+      Toggle render
+    </button>
+        <transition appear appear-class="custom-appear-class" appear-to-class="custom-appear-to-class" appear-active-class="custom-appear-active-class">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true
+            }
+        })
+    </script>
+</body>
+
+</html>

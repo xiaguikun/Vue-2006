@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input type="text" v-focus> -->
+        <!-- <div v-demo:a.b.c="d">你好</div> -->
+        <div v-demo:style.50.red>你好</div>
+        <div v-demo:style.30.green>hello</div>
+    </div>
+
+    <script src="../Vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    d: 111
+                }
+            },
+            directives: {
+                // focus: {
+                //   // 指令的定义
+                //   inserted: function (el) {
+                //     el.focus()
+                //   }
+                // }
+                // demo: {
+                //   bind(el, binding, vnode, oldVnode) {
+                //     // 只调用一次，指令第一次绑定到元素时调用
+                //     console.log('bind')
+                //   },
+                //   inserted(el, binding, vnode, oldVnode) {
+                //     // 被绑定元素插入父节点时调用
+                //     console.log('inserted')
+                //   },
+                //   update(el, binding, vnode, oldVnode) {
+                //     // 所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前
+                //     console.log('update')
+                //   },
+                //   componentUpdated(el, binding, vnode, oldVnode) {
+                //     // 指令所在组件的 VNode 及其子 VNode 全部更新后调用
+                //     console.log('componentUpdated')
+                //   },
+                //   unbind(el, binding, vnode, oldVnode) {
+                //     // 只调用一次，指令与元素解绑时调用。
+                //     console.log('unbind')
+                //   }
+                // }
+                // 对象的形式简写成函数的形式
+                // 
+                demo(el, binding) {
+                    // console.log('el', el)
+                    // console.log('binding', binding)
+                    // binding.arg: 传给指令的参数，可选。  a
+                    // binding.expression: 字符串形式的指令表达式.   d
+                    // binding.modifiers: 一个包含修饰符的对象  {b: true, c: true}
+                    // binding.name: 指令名，不包括 v- 前缀     demo
+                    // binding.value: 指令的绑定值     111
+                    const obj = binding.modifiers
+                        // for (const key in obj) {
+                        //   console.log(key)
+                        // }
+                    const [fontSize, color] = Object.keys(obj)
+                    el[binding.arg].fontSize = fontSize + 'px'
+                    el[binding.arg].color = color
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
