@@ -337,3 +337,33 @@
 #### 单页面组件
   - 一个文件就是一个组件
   - 有三部分组成  html/js/css
+
+#### Vue.config.js
+  - 用于webpack的配置，手动创建在项目的根目录
+  - 因为webpack配置放在了node_modules里面
+  - 修改完需要重启，除了src文件夹以外，修改了都要重启
+
+#### 移动端适配
+  - 使用postcss的postcss-pxtorem，lib-flexible插件
+  - npm i amfe-flexible -S  安装amfe-flexible
+  - 在main.js里面引入 import "amfe-flexible"
+  - npm i postcss-pxtorem -D  安装postcss-pxtorem
+  - 在根目录创建文件 .postcssrc.js
+    ```
+      module.exports = {
+        plugins: {
+          autoprefixer: {
+            browsers: ['Android >= 4.0', 'iOS >= 8'],
+          },
+          'postcss-pxtorem': {
+            rootValue: 37.5,
+            propList: ['*'],
+          },
+        },
+      };
+    ```
+
+
+#### 项目开发
+  - 路径中@表示src目录(只能在js里面用)
+  - scoped 表示单文件组件的css单独作用域
