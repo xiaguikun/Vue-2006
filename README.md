@@ -345,7 +345,7 @@
 
 #### 移动端适配
   - 使用postcss的postcss-pxtorem，lib-flexible插件
-  - npm i amfe-flexible -S  安装amfe-flexible
+  - npm i amfe-flexible -S  安装amfe-flexible,用来设置根元素字体大小的
   - 在main.js里面引入 import "amfe-flexible"
   - npm i postcss-pxtorem -D  安装postcss-pxtorem
   - 在根目录创建文件 .postcssrc.js
@@ -367,3 +367,12 @@
 #### 项目开发
   - 路径中@表示src目录(只能在js里面用)
   - scoped 表示单文件组件的css单独作用域
+
+
+#### better-scroll插件
+  - https://better-scroll.github.io/docs/zh-CN/guide/base-scroll-api.html#%E5%B1%9E%E6%80%A7
+  - 不是依赖滚动条实现的，是依赖transform实现的
+  - 要求
+    - 父元素要有固定的宽高
+    - 所有的子元素都需要一个容器包起来
+  - 安装 npm install better-scroll --save
