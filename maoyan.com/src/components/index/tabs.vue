@@ -5,10 +5,10 @@
             <span class="iconfont icon-jiantou"></span>
         </address>
         <ul>
-            <li v-for="(item,index) in tabList" :key="index" @click="change(index)" :class="{active:clickIndex==index}">
-                {{item}}
+            <li v-for="(item,index) in tabList" :key="index" @click="change(index,item.url)" :class="{active:clickIndex==index}">
+                {{item.title}}
                 <div v-if="clickIndex==index"></div>
-                </li>
+            </li>
         </ul>
         <span class="iconfont icon-fangdajing"></span>
     </nav>
@@ -18,13 +18,31 @@
 export default {
     data(){
         return {
-            tabList:['热映','影院','待映','经典电影'],
+            tabList:[
+                {
+                    title:'热映',
+                    url:'/hot'
+                },
+                {
+                    title:'影院',
+                    url:'/cinema'
+                },
+                {
+                    title:'待映',
+                    url:'/wait'
+                },
+                {
+                    title:'经典电影',
+                    url:'/classics'
+                }
+            ],
             clickIndex:0
         }
     },
     methods:{
-        change(i){
+        change(i,url){
             this.clickIndex=i;
+            this.$router.push(url);
         }
     }
 }

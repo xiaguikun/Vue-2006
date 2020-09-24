@@ -17,3 +17,14 @@ export function postData(params) {
 export function pullUploadData(params) {
     return http.post('/home/moreComingList', params);
 }
+
+//影院列表数据
+export function getCinemaList(params) {
+    return http.get('/cinema/list', params);
+}
+
+//影片详情数据
+
+export function getDetail(params) {
+    return http.get('/detail/info', params);
+}

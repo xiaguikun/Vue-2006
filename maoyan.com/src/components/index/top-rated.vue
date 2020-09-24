@@ -3,7 +3,7 @@
         <p>最受好评的电影</p>
         <div class="ul-wrap">
             <ul>
-                <li v-for="item in TopRatedData" :key="item.id">
+                <li v-for="item in TopRatedData" :key="item.id" @click="changeUrl(item.id)">
                     <div class="img-wrap">
                         <img :src="item.img" alt="">
                         <p v-if="item.score">观众评分{{item.score}}</p>
@@ -36,6 +36,11 @@ export default {
                 scrollX:true,
                 click:true
             })
+        }
+    },
+    methods:{
+        changeUrl(id){
+            this.$router.push('/detail/'+id);
         }
     }
 }

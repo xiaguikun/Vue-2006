@@ -1,10 +1,6 @@
 <template>
     <ul>
-        <!-- <li v-for="(item,index) in footerData" :key="index">
-            <p><span class="iconfont" :class="item.pic"></span></p>
-            <p>{{item.title}}</p>
-        </li> -->
-        <router-link v-for="(item,index) in footerData" :key="index" :to="item.url" tag="li" exact-active-class="active">
+        <router-link v-for="(item,index) in footerData" :key="index" :to="item.url" tag="li" active-class="active">
             <p><span class="iconfont" :class="item.pic"></span></p>
             <p>{{item.title}}</p>
         </router-link>
@@ -18,7 +14,7 @@ export default {
             footerData:[{
                 pic:'icon-dianying3',
                 title:'电影/影院',
-                url:'/'
+                url:'/hot'
             },{
                 pic:'icon-dianying1',
                 title:'视频',

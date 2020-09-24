@@ -2,6 +2,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
 //将VueRouter作为中间件使用
 Vue.use(VueRouter);
 
@@ -9,8 +14,37 @@ Vue.use(VueRouter);
 
 const routes = [{
     path: '/',
+    redirect: './index'
+}, {
+    path: '/index',
     component: () =>
-        import ('../views/index.vue')
+        import ('../views/index.vue'),
+    children: [{
+            path: '/index',
+            redirect: '/hot'
+        },
+        {
+            path: '/hot',
+            component: () =>
+                import ("../components/index/hot.vue")
+        },
+        {
+            path: '/cinema',
+            component: () =>
+                import ("../components/index/cinema.vue")
+        },
+        {
+            path: '/wait',
+            component: function() {
+                return import ("../components/index/wait.vue")
+            }
+        },
+        {
+            path: '/classics',
+            component: () =>
+                import ("../components/index/classics.vue")
+        }
+    ]
 }, {
     path: '/video',
     component: () =>
@@ -27,6 +61,10 @@ const routes = [{
     path: '/mine',
     component: () =>
         import ('../views/mine.vue')
+}, {
+    path: '/detail/:id',
+    component: () =>
+        import ('../views/detail.vue')
 }, {
     path: '*',
     component: () =>
