@@ -5,9 +5,9 @@
             <span class="iconfont icon-jiantou"></span>
         </address>
         <ul>
-            <li v-for="(item,index) in tabList" :key="index" @click="change(index,item.url)" :class="{active:clickIndex==index}">
+            <li v-for="(item,index) in tabList" :key="index" @click="change(index,item.url)" :class="{active:nowUrl==urlData[index]}">
                 {{item.title}}
-                <div v-if="clickIndex==index"></div>
+                <div v-if="nowUrl==urlData[index]"></div>
             </li>
         </ul>
         <span class="iconfont icon-fangdajing"></span>
@@ -36,14 +36,20 @@ export default {
                     url:'/classics'
                 }
             ],
-            clickIndex:0
+            clickIndex:0,
+            nowUrl:'',
+            urlData:['/hot','/cinema','/wait','/classics']
         }
     },
     methods:{
         change(i,url){
             this.clickIndex=i;
             this.$router.push(url);
+            this.nowUrl=url;
         }
+    },
+    mounted(){
+        this.nowUrl=location.hash.slice(1);
     }
 }
 </script>

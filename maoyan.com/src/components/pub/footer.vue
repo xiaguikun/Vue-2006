@@ -31,7 +31,7 @@ export default {
                 pic:'icon-wode',
                 title:'我的',
                 url:'/mine'
-            }]
+            }],
         }
     }
 }

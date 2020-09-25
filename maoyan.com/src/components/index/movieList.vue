@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <movie-li v-for="(item,index) in liData" :key='index' :item="item"></movie-li>
+        <movie-li v-for="(item,index) in liData" :key='index' :item="item" @click.native="changeUrl('/detailtwo')"></movie-li>
         <p v-if="liData.length>=total">已经到底部了</p>
     </ul>
 </template>
@@ -16,6 +16,11 @@ export default {
         return {
            
         }
+    },
+    methods:{
+        changeUrl(url){
+            this.$router.push(url+'/1297973');
+        }   
     }
 }
 </script>

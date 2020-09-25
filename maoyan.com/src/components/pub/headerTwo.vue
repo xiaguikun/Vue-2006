@@ -1,6 +1,6 @@
 <template>
     <header class="my-header">
-        <span class="back" v-if="showBack" @click="back">&lt;</span>
+        <span class="back" v-if="showBack" @click="back" >&lt;</span>
         <p>猫眼电影</p>
         <span class="iconfont icon-daohang1"></span>
     </header>
@@ -11,9 +11,10 @@ export default {
     props:['showBack'],
     methods:{
         back(){
-            this.$router.go(-1)
+            this.$router.go(-1);
         }
     }
+
 };
 </script>
 
@@ -29,7 +30,7 @@ export default {
     align-items:center;
     position: fixed;
     top:0;
-    z-index:1;
+    z-index:2;
     p{
         font-size:18px;
         font-weight:400;

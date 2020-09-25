@@ -82,6 +82,10 @@ const routes = [{
     component: () =>
         import ("../views/login.vue")
 }, {
+    path: '/detailtwo/:id',
+    component: () =>
+        import ('../views/detailtwo')
+}, {
     path: '*',
     component: () =>
         import ('../views/nofind404.vue')
