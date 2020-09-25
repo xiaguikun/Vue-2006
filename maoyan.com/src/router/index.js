@@ -2,6 +2,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+//去除重复点击时的警告
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
@@ -60,11 +61,26 @@ const routes = [{
 }, {
     path: '/mine',
     component: () =>
-        import ('../views/mine.vue')
+        import ('../views/mine.vue'),
+    meta: {
+        requiresAuth: true
+    },
+    //路由独享守卫
+    beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('token')) {
+            next();
+        } else {
+            next('/login');
+        }
+    }
 }, {
     path: '/detail/:id',
     component: () =>
         import ('../views/detail.vue')
+}, {
+    path: '/login',
+    component: () =>
+        import ("../views/login.vue")
 }, {
     path: '*',
     component: () =>
@@ -74,5 +90,17 @@ const routes = [{
 const router = new VueRouter({
     routes
 });
+
+//路由全局前置守卫
+// router.beforeEach((to, from, next) => {
+//     if (to.meta.requiresAuth) {
+//         if (localStorage.getItem('token')) {
+//             next()
+//         } else {
+//             next('/login')
+//         }
+//     }
+//     next();
+// })
 
 export default router;
