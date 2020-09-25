@@ -1,5 +1,6 @@
 <template>
-    <div class="detail-page">
+    <!-- <transition name="fade"> -->
+        <div class="detail-page">
         <div class="wrap-top">
             <header>猫眼电影 > {{movieInfo.nm}}</header>
                 <main>
@@ -104,6 +105,7 @@
                 <button>特惠购票</button>
             </div>
     </div>
+    <!-- </transition> -->
 </template>
 
 <script>
@@ -178,6 +180,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .fade-enter-active, .fade-leave-active {
+//   transition: all .5s;
+// }
+// .fade-enter, .fade-leave-to  {
+//     opacity: 0;
+//     transform: translateX(-100%);
+// }
+
     .detail-page{
         position:absolute;
         top:0;

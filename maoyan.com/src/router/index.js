@@ -76,7 +76,10 @@ const routes = [{
 }, {
     path: '/detail/:id',
     component: () =>
-        import ('../views/detail.vue')
+        import ('../views/detail.vue'),
+    meta: {
+        fade: true
+    }
 }, {
     path: '/login',
     component: () =>
