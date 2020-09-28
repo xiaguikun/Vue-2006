@@ -1,7 +1,7 @@
 <template>
     <nav class="tabs">
-        <address>
-            杭州
+        <address @click="changeCity">
+            {{city}}
             <span class="iconfont icon-jiantou"></span>
         </address>
         <ul>
@@ -46,10 +46,18 @@ export default {
             this.clickIndex=i;
             this.$router.push(url);
             this.nowUrl=url;
+        },
+        changeCity(){
+            this.$router.push('/city');
         }
     },
     mounted(){
         this.nowUrl=location.hash.slice(1);
+    },
+    computed:{
+        city(){
+            return this.$store.state.nowCity
+        }
     }
 }
 </script>

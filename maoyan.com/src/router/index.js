@@ -49,21 +49,25 @@ const routes = [{
 }, {
     path: '/video',
     component: () =>
-        import ('../views/video.vue')
+        import ('../views/video.vue'),
+    meta: { title: '视频页面' }
 }, {
     path: '/mini-video',
     component: () =>
-        import ('../views/minivideo.vue')
+        import ('../views/minivideo.vue'),
+    meta: { title: '小视频页面' }
 }, {
     path: '/show',
     component: () =>
-        import ('../views/show.vue')
+        import ('../views/show.vue'),
+    meta: { title: '演出页面' }
 }, {
     path: '/mine',
     component: () =>
         import ('../views/mine.vue'),
     meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        title: '我的页面'
     },
     //路由独享守卫
     beforeEnter: (to, from, next) => {
@@ -89,6 +93,10 @@ const routes = [{
     component: () =>
         import ('../views/detailtwo')
 }, {
+    path: '/city',
+    component: () =>
+        import ('../views/city.vue')
+}, {
     path: '*',
     component: () =>
         import ('../views/nofind404.vue')
@@ -99,15 +107,16 @@ const router = new VueRouter({
 });
 
 //路由全局前置守卫
-// router.beforeEach((to, from, next) => {
-//     if (to.meta.requiresAuth) {
-//         if (localStorage.getItem('token')) {
-//             next()
-//         } else {
-//             next('/login')
-//         }
-//     }
-//     next();
-// })
+router.beforeEach((to, from, next) => {
+    // if (to.meta.requiresAuth) {
+    //     if (localStorage.getItem('token')) {
+    //         next()
+    //     } else {
+    //         next('/login')
+    //     }
+    // }
+    document.title = to.meta.title ? to.meta.title : 'maoyan.com';
+    next();
+})
 
 export default router;

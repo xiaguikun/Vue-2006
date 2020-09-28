@@ -28,3 +28,8 @@ export function getCinemaList(params) {
 export function getDetail(params) {
     return http.get('/detail/info', params);
 }
+
+//城市数据
+export function getCities(params) {
+    return http.get('/cities/list', params);
+}

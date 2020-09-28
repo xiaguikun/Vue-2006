@@ -407,8 +407,279 @@
     - exact     表示精准匹配
     - exact-active-class   前两个结合,默认值: "router-link-exact-active"
 
+  - router-view
+    - 路由的出口
+
+  - 编程式导航
+    - 用js来做跳转
+    - 有复杂逻辑的时候（除了跳转还要做其他的事情）， 在布局里不方便使用router-link的时候
+    - this.$router.push(url)      跳转到新页面，有跳转记录
+    - this.$router.replace(url)   跳转到新页面，替换当前页面，没有记录，不能后退
+    - this.$router.router.go(n)   前进或者后退几步
+
+  - 命名路由
+    - 给route添加name属性
+    - <router-link to="/detail/456"></router-link>
+    - <router-link :to="{name: 'detail', params: {id: 456}}"></router-link>
+    - this.$router.push('/detail/456')
+    - this.$router.push({name: 'detail', params: {id: 456}})
+
+  - 重定向和别名
+    - 重定向： 当用户访问 /a时，URL 将会被替换成 /b，然后匹配路由为 /b
+    - { path: '/a', redirect: '/b' }
+    - 别名： /a 的别名是 /b，意味着，当用户访问 /b 时，URL 会保持为 /b，但是路由匹配则为 /a，就像用户访问 /a 一样。
+    - { path: '/a', component: A, alias: '/b' }
+
+
+  - vue-router有几种模式
+    - hash        
+      - /#       
+      - 比较难看
+      - 比较好操作
+    - history
+      - 不带#
+    - abstract
+
+
+#### 路由守卫
+  - 全局路由守卫
+    ```
+      router.beforeEach((to, from, next) => {
+        if (to.meta.requiresAuth) {
+          if (localStorage.getItem('token')) {
+              如果有token，说明登录过了
+            next()
+          } else {
+              如果没有token，那么跳到登录页
+            next('/login')
+          }
+        }
+        next()
+      })
+    ```
+  - 路由独享守卫
+    ```
+      {
+        path: '/mini-video',
+        component: () => import('../views/MiniVideo.vue'),
+        // meta: { requiresAuth: true }
+        // 路由独享的守卫
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('token')) {
+            next()
+          } else {
+            next('/login')
+          }
+        }
+      },
+    ```
+
+  - 组件内守卫
+    - beforeRouteEnter
+      - 取不到this
+    - beforeRouteUpdate
+    - beforeRouteLeave
+
+#### Vuex
+  - 是一个状态管理模式（全局状态管理工具）
+  - Vue components  ----dispatch---->   actions    ----commit----->  mutations  ------->  state
+  - 由5部分组成
+    - state
+      - 用于存放全局的状态的
+      - mapState   放在computed里面
+    - getters
+      - 相当于vuex里面的计算属性
+      - mapGetters  放在computed里面
+    - mutations
+      - 用于放改变state的同步函数
+      - 有两个参数，第一个参数是state，第二个参数是payload，payload最好是对象
+      - mapMutations   放在methods里面
+    - actions
+    - modules
+
+
+
+
 
 ### 补充-self
-  - vue-router 模块
+#### vue-router 模块
     - this.$route.params.id 可以直接拿到参数(用法，要在设置路由routes时，将路径中的./index/:id :后面是参数，通过this.$route.params.id 就可以拿到)
     - 在<v-link replace></v-link>中添加replace属性,跳转就不会被记录到浏览记录中
+#### Vuex 模块
+
+  基础
+
+    ```js
+        export default new Vuex.Store({
+        //存放状态数据
+        state: {
+            nowCity: '全国',
+            cityId: ''
+        },
+        //存放方法，一般是同步函数方法，通过其他页面的this.$store.commit('方法名'，传参)
+        mutations: {
+            clickNowCity(state, payload) {
+                state.nowCity = payload.ite.name;
+                state.cityId = payload.ite.cityId;
+            }
+        },
+        //存放方法，一般是异步方法，通过其他页面的this.$store.dispatch('actions里面的方法名'，传参)
+        //在action 这个option中定义 方法名(context,payload){context.commit(mutations里面的方法名，传参)}
+        actions: {
+
+        },
+        modules: {}
+      });
+      //其他页面用数据的时候，就在其他页面用计算后属性(computed)，在计算后属性中定义一个，例如city(){return this.$store.state.状态数据名}
+    ```
+  进阶(核心概念)
+  - 是一个状态管理模式（全局状态管理工具）
+  - Vue components  ----dispatch---->   actions    ----commit----->  mutations  ------->  state
+  - 由5部分组成
+    - state
+      - 用于存放全局的状态的
+      - mapState   放在computed里面,(可以使用对象展开运算符(...)，将此对象混入到外部对象中)
+              ```js
+              //store index.js
+              export default new Vuex.Store({
+                  state:{
+                    count1:1,
+                    count2:2,
+                    count3:3
+                  }
+              })
+              //用store的Vue文件，写在计算属性中
+              export default{
+                computed:{
+                //普通调用
+                  count(){
+                    return this.$store.state.count1
+                  }
+                //使用辅助函数mapState
+                  ...mapState({
+                    //使用箭头函数
+                    count1: state=>state.count1,
+                    //传字符串参数
+                    count2:'count2',
+                    //使用常规函数，与局部状态结合
+                    count3(state){
+                      return state.count3+this.count
+                    }
+                  })
+                }
+              }
+              
+              ```
+    - getters
+      - 相当于vuex里面的计算属性
+      - mapGetters  放在computed里面
+            ```js
+            //store index.js
+            export default new Vuex.Store({
+              state:{
+                count1:1,
+                count2:2
+              },
+              getters:{
+                data1:state=> state.count1+state.count2,
+                data2:(state,getters)=>state.count1+getters.data1
+              }
+            })
+            //调用，在需要使用的vue文件中，写在计算属性中
+              export default{
+                computed:{
+                //普通调用
+                data(){
+                  return this.$store.getters.data1
+                },
+                //使用辅助函数mapGetters
+                ...mapGetters([
+                  'data1',
+                  'data2',
+                  //如果想换属性名字
+                  data:'data1'
+                ])
+
+                }
+              }
+            ```
+    - mutations
+      - 用于放改变state的同步函数
+      - 有两个参数，第一个参数是state，第二个参数是payload，payload最好是对象，是可以改变数据状态的地方
+      - mapMutations   放在methods里面
+          ```js
+          //store index.js
+          export default new Vuex.Store({
+            state:{
+              count1:1,
+              count2:2
+            },
+            mutations:{
+              changeState(state,payload){
+                state.count1=state.count1+payload.count;
+                state.count2=state.count2+payload.count;
+              }
+            }
+          })
+          //mutayions的changeState函数需要在组件中commit提交才能执行，定义在methods中
+          export default{
+            methods:{
+          //普通方法，
+              handerClick(){
+                this.$store.commit('changeState',{count:1})
+              }
+          //对象风格提交
+              handerClick(){
+                this.$store.commit({
+                  type:'changeState',
+                  count:1
+                })
+              },
+          //使用辅助函数mapMutations
+            ...mapMutations([
+              'changeState'
+            ])
+            ...mapActions({
+              add: 'changeState' // 将 `this.add()` 映射为 `this.$store.dispatch('changeState')`
+            })
+            }
+          }
+
+          ```
+    - actions
+        - Action 提交的是 mutation，而不是直接变更状态。Action 可以包含任意异步操作。
+        ```js
+        //store index.js
+          export default new Vuex.Store({
+            state:{
+              count:1
+            },
+            mutations:{
+              change(state){
+                state.count++;
+              }
+            },
+            actions:{
+              hander(context){
+                context.commit('change');
+              }
+            }
+          })
+        //组件中发送action函数
+        export default{
+          methods:{
+            //普通方法
+            handerClick(){
+              this.$store.dispatch('hander')
+            }
+            //使用mapActions
+            ...mapActions([
+              'hander'
+            ])
+            ...mapActions({
+              add: 'hander' // 将 `this.add()` 映射为 `this.$store.dispatch('hander')`
+            })
+          }
+        }
+        ```
+    - modules
